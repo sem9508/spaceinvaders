@@ -1,3 +1,3 @@
 # spaceinvaders
 school
-quiniupdate
+pygame required
