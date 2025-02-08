@@ -1,5 +1,4 @@
 import pygame
-import sys
 from constants import *
 from objects.button import *
 
@@ -21,16 +20,20 @@ class Menu:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.run = False
-                    pygame.quit()
-                    sys.exit()
+                    return -1 # handle window closure in main.py
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.play_btn.update(pygame.mouse.get_pos()):
                         self.run = False
                         self.next_screen = 1
+
+            # update
+                        
             # draw
             self.screen.fill(BLACK)
             self.play_btn.draw(self.screen)
+
+            pygame.display.update()
 
             self.clock.tick(self.fps)
         return self.next_screen
