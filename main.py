@@ -1,6 +1,8 @@
 import pygame
 from CONSTANTS import *
-from game import Game
+from screens.game import Game
+from screens.menu import Menu
+import os
 
 pygame.init()
 
@@ -10,5 +12,9 @@ active_screen = 0
 
 while run:
     if active_screen == 0:
+        window_instance = Menu(screen)
+        active_screen = window_instance.loop()
+
+    if active_screen == 1:
         window_instance = Game(screen)
         active_screen = window_instance.loop()
