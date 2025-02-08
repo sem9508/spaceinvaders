@@ -1,6 +1,6 @@
 import pygame
 import sys
-from CONSTANTS import *
+from constants import *
 from objects.button import *
 
 class Menu:

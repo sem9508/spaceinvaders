@@ -1,5 +1,5 @@
 import pygame
-from CONSTANTS import WHITE
+from constants import *
 
 class Button:
     def __init__(self, x, y, width, height, path):
