@@ -33,7 +33,7 @@ class Menu:
             self.screen.fill(BLACK)
             self.play_btn.draw(self.screen)
 
-            pygame.display.update()
+            pygame.display.flip()
 
             self.clock.tick(self.fps)
         return self.next_screen
