@@ -1,5 +1,5 @@
 import pygame
-from constants import *
+from CONSTANTS import *
 from objects.button import *
 
 class Menu:
@@ -35,5 +35,6 @@ class Menu:
 
             pygame.display.flip()
 
+            pygame.display.flip()
             self.clock.tick(self.fps)
         return self.next_screen
