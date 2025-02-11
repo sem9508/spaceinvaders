@@ -1,6 +1,6 @@
 import pygame
 import sys
-from constant import *
+from constants import *
 
 class Game:
     def __init__(self, screen):

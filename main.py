@@ -1,5 +1,5 @@
 import pygame
-from constant import *
+from constants import *
 from screens.game import Game
 from screens.menu import Menu
 import sys
