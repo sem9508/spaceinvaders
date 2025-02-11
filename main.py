@@ -1,5 +1,5 @@
 import pygame
-from CONSTANTS import *
+from constant import *
 from screens.game import Game
 from screens.menu import Menu
 import sys
@@ -21,4 +21,4 @@ while run:
 
     else: # window closure. when window is closed in a loop of a screen it should return -1 which triggers this else. for example look at menu.py
         pygame.quit()
-        sys.exit()
+        sys.exit() 

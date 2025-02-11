@@ -1,5 +1,5 @@
 import pygame
-from CONSTANTS import *
+from constant import *
 
 class Ship:
     def __init__(self, x, y, width, height, color):
