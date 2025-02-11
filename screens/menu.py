@@ -1,5 +1,5 @@
 import pygame
-from constants import *
+from CONSTANTS import *
 from objects.button import *
 
 class Menu:
