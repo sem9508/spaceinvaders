@@ -1,7 +1,7 @@
 import pygame
 from constants import *
 
-class bullet:
+class Bullet:
     def __init__(self, color, radius, x, width, y, height):
         self.color = color
         self.radius = radius
