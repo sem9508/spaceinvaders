@@ -1,5 +1,5 @@
 import pygame
-from CONSTANTS import *
+from constants import *
 
 class bullet:
     def __init__(self, color, radius, x, width, y, height):
