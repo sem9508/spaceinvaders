@@ -2,6 +2,7 @@ import pygame
 from constants import *
 from screens.game import Game
 from screens.menu import Menu
+from screens.options import Options
 import sys
 
 pygame.init()
@@ -17,6 +18,10 @@ while run:
 
     elif active_screen == 1:
         window_instance = Game(screen)
+        active_screen = window_instance.loop()
+
+    elif active_screen == 2:
+        window_instance = Options(screen)
         active_screen = window_instance.loop()
 
     else: # window closure. when window is closed in a loop of a screen it should return -1 which triggers this else. for example look at menu.py

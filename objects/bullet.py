@@ -8,7 +8,7 @@ class Bullet:
         self.center = (x + width/2, y + height/2)
 
     def draw(self, screen):
-        pass
+        pygame.draw.circle(screen, self.color, self.center, self.radiuss)
     
     def update(self):
         pass
