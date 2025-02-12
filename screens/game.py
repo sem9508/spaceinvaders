@@ -7,6 +7,7 @@ class Game:
         self.screen = screen
         self.fps = FPS
         self.run = True
+        self.next_screen = None
         self.clock = pygame.time.Clock()
         pygame.display.set_caption('space invaders')
 
@@ -23,3 +24,4 @@ class Game:
 
             pygame.display.flip()
             self.clock.tick(self.fps)
+        return self.next_screen
