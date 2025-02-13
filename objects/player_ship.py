@@ -7,10 +7,13 @@ from constants import *
 # that way all the enemies and the player share the basic ship class but can have different properties
 
 class PlayerShip(Ship):
-    def __init__(self, game_manager, x, y, width, height, img, max_ammo):
+    def __init__(self, game_manager, x, y, width, height, img):
         super().__init__(game_manager, x, y, width, height, img) # the init for the basic ship class (super is the Ship)
-        self.max_ammo = max_ammo
+        self.max_ammo = 5
         self.ammo = self.max_ammo
+
+        self.reload_clock = 0
+        self.reload_duration = 3*FPS
 
     def update(self, keys):
         direction = [0, 0]
@@ -24,6 +27,12 @@ class PlayerShip(Ship):
             direction[1] += 1
 
         self.move(direction[0], direction[1])
+
+        if self.ammo <= 0:
+            self.reload_clock += 1
+            if self.reload_clock >= self.reload_duration:
+                self.ammo = self.max_ammo
+                self.reload_clock = 0
 
 
     def shoot(self):
