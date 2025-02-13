@@ -2,12 +2,13 @@ import pygame
 from constants import *
 
 class Ship:
-    def __init__(self, x, y, width, height, color):
+    def __init__(self, x, y, width, height, color, img):
         self.rect = pygame.Rect(x, y, width, height)
         self.color = color
+        self.img = pygame.image.load(img).convert_alpha()
 
     def draw(self, screen):
-        pass
+        screen.blit(self.img, (self.rect.x, self.rect.y))
 
     def update(self):
         pass
