@@ -7,7 +7,7 @@ class Ship:
         self.rect = pygame.Rect(x, y, width, height)
         self.game_manager = game_manager
         self.img = pygame.image.load(img).convert_alpha()
-        self.speed = 5
+        self.speed = 2
 
     def draw(self):
         self.game_manager.screen.blit(self.img, (self.rect.x, self.rect.y))

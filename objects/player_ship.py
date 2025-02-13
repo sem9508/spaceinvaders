@@ -15,6 +15,8 @@ class PlayerShip(Ship):
         self.reload_clock = 0
         self.reload_duration = 3*FPS
 
+        self.active_gun = -1
+
     def update(self, keys):
         direction = [0, 0]
         if keys[pygame.K_a]:
@@ -34,13 +36,15 @@ class PlayerShip(Ship):
                 self.ammo = self.max_ammo
                 self.reload_clock = 0
 
-
     def shoot(self):
         if self.ammo <= 0:
             return
         
         self.ammo -= 1
-        new_bullet = Bullet(self.game_manager, WHITE, 2, self.rect.x + self.rect.width/2, self.rect.y, 0, -1)
+
+        new_bullet = Bullet(self.game_manager, WHITE, 2, self.rect.x + 5 if self.active_gun == -1 else self.rect.x + self.rect.width - 5, self.rect.y+10, 0, -1)
+
+        self.active_gun *= -1
         self.game_manager.bullets.append(new_bullet)
 
 # adding an update function here overrrides the update function of Ship so keep that in mind
