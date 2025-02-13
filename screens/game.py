@@ -14,7 +14,7 @@ class Game:
         self.run = True
         self.next_screen = None
         self.clock = pygame.time.Clock()
-        self.player = PlayerShip(self.game_manager, SCREEN_WIDTH/2-SHIP_WIDTH/2, SCREEN_HEIGHT - 20 - SHIP_HEIGHT/2, 32, 32, 'assets\images\player_ship.png')
+        self.player = PlayerShip(self.game_manager, SCREEN_WIDTH/2-SHIP_WIDTH/2, SCREEN_HEIGHT - 20 - SHIP_HEIGHT/2, 32, 32, 'assets\images\player_ship.png', 5)
         pygame.display.set_caption('space invaders')
 
         self.game_manager.add_collision_object(self.player)
@@ -31,16 +31,25 @@ class Game:
                     self.run = False
                     return -1
                 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.player.shoot()
+                
             keys = pygame.key.get_pressed()
                 
             # Update
             self.player.update(keys)
+            for bullet in self.game_manager.bullets:
+                bullet.update()
 
             # Draw
             self.screen.fill(BLACK)
-
             self.player.draw()
+            for bullet in self.game_manager.bullets:
+                bullet.draw()
 
+            # Window/Time Update
             pygame.display.flip()
             self.clock.tick(self.fps)
+
         return self.next_screen

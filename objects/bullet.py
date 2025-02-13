@@ -2,13 +2,20 @@ import pygame
 from constants import *
 
 class Bullet:
-    def __init__(self, color, radius, x, width, y, height):
+    def __init__(self, game_manager, color, radius, x, y, dir_x, dir_y):
         self.color = color
         self.radius = radius
-        self.center = (x + width/2, y + height/2)
+        self.x = x
+        self.y = y
 
-    def draw(self, screen):
-        pygame.draw.circle(screen, self.color, self.center, self.radius)
+        self.speed = 5
+        self.game_manager = game_manager
+
+        self.direction = [dir_x, dir_y]
+
+    def draw(self):
+        pygame.draw.circle(self.game_manager.screen, self.color, (self.x, self.y), self.radius)
     
     def update(self):
-        pass
+        self.x += self.direction[0]*self.speed
+        self.y += self.direction[1]*self.speed
