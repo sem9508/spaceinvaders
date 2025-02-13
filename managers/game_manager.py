@@ -1,8 +1,9 @@
 
 class GameManager:
-    def __init__(self):
+    def __init__(self, screen):
         self.collision_objects = []
         self.objects = []
+        self.screen = screen
 
     def add_collision_object(self, obj):
         self.collision_objects.append(obj)
