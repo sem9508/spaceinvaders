@@ -7,6 +7,7 @@ class Ship:
         self.rect = pygame.Rect(x, y, width, height)
         self.game_manager = game_manager
         self.img = pygame.image.load(img).convert_alpha()
+        self.img = pygame.transform.scale(self.img, (width, height))
         self.speed = 2
 
     def draw(self):
