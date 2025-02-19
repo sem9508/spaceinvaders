@@ -13,7 +13,7 @@ class PlayerShip(Ship):
         self.ammo = self.max_ammo
 
         self.reload_clock = 0
-        self.reload_duration = 3*FPS
+        self.reload_duration = 1*FPS
 
         self.active_gun = -1
 
