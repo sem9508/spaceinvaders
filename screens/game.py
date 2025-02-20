@@ -3,12 +3,15 @@ import sys
 from constants import *
 from objects.player_ship import PlayerShip
 from managers.game_manager import GameManager
+from objects.bunker import Bunker
 
 class Game:
     def __init__(self, screen):
         self.screen = screen
 
         self.game_manager = GameManager(self.screen)
+
+        self.bunker = Bunker(self.game_manager, 50, 50, 200, 200)
 
         self.fps = FPS
         self.run = True
@@ -48,6 +51,7 @@ class Game:
             # Draw
             self.screen.fill(BLACK)
             self.player.draw()
+            self.bunker.draw()
             for bullet in self.game_manager.bullets:
                 bullet.draw()
 
