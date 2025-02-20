@@ -34,6 +34,9 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.player.shoot()
+
+                    if event.key == pygame.K_r:
+                        self.player.reload()
                 
             keys = pygame.key.get_pressed()
                 

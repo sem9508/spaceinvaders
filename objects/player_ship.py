@@ -14,6 +14,7 @@ class PlayerShip(Ship):
 
         self.reload_clock = 0
         self.reload_duration = 1*FPS
+        self.reloading = True
 
         self.active_gun = -1
 
@@ -30,14 +31,17 @@ class PlayerShip(Ship):
 
         self.move(direction[0], direction[1])
 
-        if self.ammo <= 0:
+        if self.reloading:
             self.reload_clock += 1
+
             if self.reload_clock >= self.reload_duration:
                 self.ammo = self.max_ammo
                 self.reload_clock = 0
+                self.reloading = False
+
 
     def shoot(self):
-        if self.ammo <= 0:
+        if self.ammo <= 0 or self.reloading:
             return
         
         self.ammo -= 1
@@ -46,5 +50,8 @@ class PlayerShip(Ship):
 
         self.active_gun *= -1
         self.game_manager.bullets.append(new_bullet)
+
+    def reload(self):
+        self.reloading = True
 
 # adding an update function here overrrides the update function of Ship so keep that in mind
