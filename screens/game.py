@@ -3,6 +3,7 @@ import sys
 from constants import *
 from objects.player_ship import PlayerShip
 from managers.game_manager import GameManager
+from objects.bunker import Bunker
 
 class Game:
     def __init__(self, screen):
@@ -10,11 +11,13 @@ class Game:
 
         self.game_manager = GameManager(self.screen)
 
+        self.bunker = Bunker(self.game_manager, 50, 50, 200, 200)
+
         self.fps = FPS
         self.run = True
         self.next_screen = None
         self.clock = pygame.time.Clock()
-        self.player = PlayerShip(self.game_manager, SCREEN_WIDTH/2-SHIP_WIDTH/2, SCREEN_HEIGHT - 20 - SHIP_HEIGHT/2, 32, 32, 'assets\images\player_ship.png')
+        self.player = PlayerShip(self.game_manager, SCREEN_WIDTH/2-SHIP_WIDTH/2, SCREEN_HEIGHT - 20 - SHIP_HEIGHT/2, 32, 32, 'assets/images/player_ship.png')
         pygame.display.set_caption('space invaders')
 
         self.game_manager.add_collision_object(self.player)
@@ -48,6 +51,7 @@ class Game:
             # Draw
             self.screen.fill(BLACK)
             self.player.draw()
+            self.bunker.draw()
             for bullet in self.game_manager.bullets:
                 bullet.draw()
 

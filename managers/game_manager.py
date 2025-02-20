@@ -5,6 +5,7 @@ class GameManager:
         self.objects = []
         self.screen = screen
         self.bullets = []
+        self.enemy_bullets = []
 
     def add_collision_object(self, obj):
         self.collision_objects.append(obj)
