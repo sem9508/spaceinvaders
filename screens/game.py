@@ -2,7 +2,7 @@ import pygame
 import sys
 from constants import *
 from objects.player_ship import *
-from objects.wompe import *
+from objects.womp import *
 from managers.game_manager import GameManager
 from objects.bunker import Bunker
 
