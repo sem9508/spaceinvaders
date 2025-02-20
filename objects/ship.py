@@ -29,3 +29,7 @@ class Ship:
             self.rect.x = 0
         if self.rect.x > self.game_manager.screen.get_width() - self.rect.width:
             self.rect.x = self.game_manager.screen.get_width() - self.rect.width
+        if self.rect.y < 0:
+            self.rect.y = 0
+        if self.rect.y > self.game_manager.screen.get_height() - self.rect.height:
+            self.rect.y = self.game_manager.screen.get_height() - self.rect.height
