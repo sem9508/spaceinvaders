@@ -11,7 +11,14 @@ class Game:
 
         self.game_manager = GameManager(self.screen)
 
-        self.bunker = Bunker(self.game_manager, 50, 50, 200, 200)
+        self.bunkers = [
+            Bunker(self.game_manager, 50, self.screen.get_height()-200, 100, 50),
+            Bunker(self.game_manager, 200, self.screen.get_height()-200, 100, 50),
+            Bunker(self.game_manager, 350, self.screen.get_height()-200, 100, 50),
+            Bunker(self.game_manager, 500, self.screen.get_height()-200, 100, 50),
+
+
+        ]
 
         self.fps = FPS
         self.run = True
@@ -21,7 +28,6 @@ class Game:
         pygame.display.set_caption('space invaders')
 
         self.game_manager.add_collision_object(self.player)
-
         self.game_manager.add_game_object(self.player)
 
 
@@ -48,10 +54,14 @@ class Game:
             for bullet in self.game_manager.bullets:
                 bullet.update()
 
+            for bunker in self.bunkers:
+                bunker.update()
+
             # Draw
             self.screen.fill(BLACK)
             self.player.draw()
-            self.bunker.draw()
+            for bunker in self.bunkers:
+                bunker.draw()
             for bullet in self.game_manager.bullets:
                 bullet.draw()
 

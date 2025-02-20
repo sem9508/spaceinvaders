@@ -11,18 +11,32 @@ class Bunker:
         self.width = width
         self.height = height
 
-        self.rect_width = 2
-        self.rect_height = 2
+        self.rect_width = 10
+        self.rect_height = 10
 
-        self.grid = [[1 for _ in range(20)] for _ in range(20)]
+        self.grid = []
+
+        for i in range(width//self.rect_width):
+            for j in range(height//self.rect_height):
+                self.grid.append(pygame.Rect(self.x + self.rect_width*i, self.y + self.rect_height*j, self.rect_width, self.rect_height))
+
 
     def draw(self):
-        for row in range(len(self.grid)):
-            for col in range(len(self.grid[row])):
-                if self.grid[row][col] == 1:
-                    pygame.draw.rect(self.game_manager.screen, RED, pygame.Rect(row*self.rect_width+self.x, col*self.rect_height+self.y, self.rect_width, self.rect_height))
+        for pixel in self.grid:
+            pygame.draw.rect(self.game_manager.screen, GREEN, pixel)
 
-    def destroy(self, x, y):
-        '''
-        row, col = 
-        self.grid[]'''
+    def update(self):
+        self.check_bullet_collision()
+
+    def check_bullet_collision(self):
+        for bullet in self.game_manager.enemy_bullets:
+            for pixel in self.grid:
+                if pixel.collidepoint(bullet.x, bullet.y):
+                    self.grid.pop(self.grid.index(pixel))
+                    self.game_manager.enemy_bullets.pop(self.game_manager.enemy_bullets.index(bullet))
+
+        for bullet in self.game_manager.bullets:
+            for pixel in self.grid:
+                if pixel.collidepoint(bullet.x, bullet.y):
+                    self.grid.pop(self.grid.index(pixel))
+                    self.game_manager.bullets.pop(self.game_manager.bullets.index(bullet))
