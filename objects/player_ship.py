@@ -14,7 +14,7 @@ class PlayerShip(Ship):
 
         self.reload_clock = 0
         self.reload_duration = 1*FPS
-        self.reloading = True
+        self.reloading = False
 
         self.active_gun = -1
 
