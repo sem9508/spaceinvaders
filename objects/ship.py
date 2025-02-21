@@ -6,12 +6,19 @@ class Ship:
     def __init__(self, game_manager, x, y, width, height, img):
         self.rect = pygame.Rect(x, y, width, height)
         self.game_manager = game_manager
-        self.img = pygame.image.load(img).convert_alpha()
-        self.img = pygame.transform.scale(self.img, (width, height))
+        self.image = img
+        self.img = pygame.image.load(self.image[0]).convert_alpha()
+        self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
+        self.fps = FPS
         self.speed = 2
+        self.timer_animations = 0
+
 
     def draw(self):
         self.game_manager.screen.blit(self.img, (self.rect.x, self.rect.y))
+
+    def animation(self):
+        pass
 
     def update(self):
         pass
