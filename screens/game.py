@@ -17,7 +17,7 @@ class Game:
         self.run = True
         self.next_screen = None
         self.clock = pygame.time.Clock()
-        self.player = PlayerShip(self.game_manager, SCREEN_WIDTH/2-SHIP_WIDTH/2, SCREEN_HEIGHT - 20 - SHIP_HEIGHT/2, 32, 32, 'assets/images/player_ship.png')
+        self.player = PlayerShip(self.game_manager, SCREEN_WIDTH/2-SHIP_WIDTH/2, SCREEN_HEIGHT - 20 - SHIP_HEIGHT/2, 32, 32, 'assets/images/player_ship_1.png')
         pygame.display.set_caption('space invaders')
 
         self.game_manager.add_collision_object(self.player)
