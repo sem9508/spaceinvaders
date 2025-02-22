@@ -11,38 +11,42 @@ class Ship:
         self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
         self.fps = FPS
         self.speed = 2
-        self.timer_animations = 0
+        self.frequency = FREQUENCY
+        self.timer = 0
 
 
     def draw(self):
         self.game_manager.screen.blit(self.img, (self.rect.x, self.rect.y))
 
     def animation_with_frames(self):
-        if self.timer_animations <= self.fps / 8:
+        if self.timer <= self.fps / 8:
             self.img = pygame.image.load(self.image[0]).convert_alpha()
             self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
-            self.timer_animations += 1
+            self.timer += 1
 
-        elif self.timer_animations > self.fps / 8 and self.timer_animations <= self.fps / 4:
+        elif self.timer > self.fps / 8 and self.timer <= self.fps / 4:
             self.img = pygame.image.load(self.image[1]).convert_alpha()
             self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
-            self.timer_animations += 1
+            self.timer += 1
 
-        elif self.timer_animations > self.fps / 4 and self.timer_animations <= self.fps * (3 / 8):
+        elif self.timer > self.fps / 4 and self.timer <= self.fps * (3 / 8):
             self.img = pygame.image.load(self.image[2]).convert_alpha()
             self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
-            self.timer_animations += 1
+            self.timer += 1
 
-        elif self.timer_animations > self.fps * (3 / 8) and self.timer_animations <= self.fps / 2:
+        elif self.timer > self.fps * (3 / 8) and self.timer <= self.fps / 2:
             self.img = pygame.image.load(self.image[3]).convert_alpha()
             self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
-            self.timer_animations += 1
+            self.timer += 1
 
-        elif self.timer_animations > self.fps / 2:
-            self.timer_animations = 0
+        elif self.timer > self.fps / 2:
+            self.timer = 0
 
     def animation_without_frames(self):
-        pass
+        self.rect.y += math.sin(2 * int(math.pi) * self.frequency * self.timer)
+    
+        #  x(t) = A * sin(2 * pi * frequecy * time + phi0)
+        #  phi0 is the beginning fase
 
     def update(self):
         pass

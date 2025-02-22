@@ -74,6 +74,9 @@ class Game:
 
             # Animation
             self.player.animation_with_frames()
+            if not keys[pygame.K_a] and not keys[pygame.K_d]:
+                self.player.animation_without_frames()
+            
 
             # Draw
             self.screen.fill(BLACK)
@@ -87,6 +90,5 @@ class Game:
             # Window/Time Update
             pygame.display.flip()
             self.clock.tick(self.fps)
-            self.timer_animations =+ 1
 
         return self.next_screen
