@@ -73,7 +73,7 @@ class Game:
                 bunker.update()
 
             # Animation
-            self.player.animation()
+            self.player.animation_with_frames()
 
             # Draw
             self.screen.fill(BLACK)

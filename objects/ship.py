@@ -17,7 +17,31 @@ class Ship:
     def draw(self):
         self.game_manager.screen.blit(self.img, (self.rect.x, self.rect.y))
 
-    def animation(self):
+    def animation_with_frames(self):
+        if self.timer_animations <= self.fps / 8:
+            self.img = pygame.image.load(self.image[0]).convert_alpha()
+            self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
+            self.timer_animations += 1
+
+        elif self.timer_animations > self.fps / 8 and self.timer_animations <= self.fps / 4:
+            self.img = pygame.image.load(self.image[1]).convert_alpha()
+            self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
+            self.timer_animations += 1
+
+        elif self.timer_animations > self.fps / 4 and self.timer_animations <= self.fps * (3 / 8):
+            self.img = pygame.image.load(self.image[2]).convert_alpha()
+            self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
+            self.timer_animations += 1
+
+        elif self.timer_animations > self.fps * (3 / 8) and self.timer_animations <= self.fps / 2:
+            self.img = pygame.image.load(self.image[3]).convert_alpha()
+            self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
+            self.timer_animations += 1
+
+        elif self.timer_animations > self.fps / 2:
+            self.timer_animations = 0
+
+    def animation_without_frames(self):
         pass
 
     def update(self):
