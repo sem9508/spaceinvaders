@@ -74,7 +74,7 @@ class Game:
 
             # Animation
             self.player.animation_with_frames()
-            if not keys[pygame.K_a] and not keys[pygame.K_d]:
+            if not keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s]:
                 self.player.animation_without_frames()
             
 
