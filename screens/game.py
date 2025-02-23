@@ -18,8 +18,19 @@ class Game:
         self.animation_manager.add_player_ship_frames('assets/images/player_ship_2.png')
         self.animation_manager.add_player_ship_frames('assets/images/player_ship_3.png')
         self.animation_manager.add_player_ship_frames('assets/images/player_ship_4.png')
+        self.animation_manager.add_player_ship_frames('assets/images/player_ship_1.png')
+        self.animation_manager.add_player_ship_frames('assets/images/player_ship_2.png')
+        self.animation_manager.add_player_ship_frames('assets/images/player_ship_3.png')
+        self.animation_manager.add_player_ship_frames('assets/images/player_ship_4.png')
 
-        self.animation_manager.add_enemy_1_frames('assets/images/enemy_1.png')
+        self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_1.png')
+        self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_1.png')
+        self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_1.png')
+        self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_2.png')
+        self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_2.png')
+        self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_1.png')
+        self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_1.png')
+        self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_1.png')
 
 
 
@@ -76,6 +87,8 @@ class Game:
             self.player.animation_with_frames()
             if not keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s]:
                 self.player.animation_without_frames()
+            
+            self.enemy.animation_with_frames()
             
 
             # Draw

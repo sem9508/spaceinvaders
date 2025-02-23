@@ -38,8 +38,28 @@ class Ship:
             self.img = pygame.image.load(self.image[3]).convert_alpha()
             self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
             self.timer += 1
+        
+        elif self.timer > self.fps / 2 and self.timer <= self.fps * (5 / 8):
+            self.img = pygame.image.load(self.image[4]).convert_alpha()
+            self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
+            self.timer += 1
 
-        elif self.timer > self.fps / 2:
+        elif self.timer > self.fps * (5 / 8) and self.timer <= self.fps * (6 / 8):
+            self.img = pygame.image.load(self.image[5]).convert_alpha()
+            self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
+            self.timer += 1
+
+        elif self.timer > self.fps * (6 / 8) and self.timer <= self.timer * (7 / 8):
+            self.img = pygame.image.load(self.image[6]).convert_alpha()
+            self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
+            self.timer += 1
+
+        elif self.timer > self.fps * (7 / 8) and self.timer <= self.fps:
+            self.img = pygame.image.load(self.image[7]).convert_alpha()
+            self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
+            self.timer += 1
+
+        else:
             self.timer = 0
 
     def animation_without_frames(self):
