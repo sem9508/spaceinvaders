@@ -11,6 +11,7 @@ class PlayerShip(Ship):
         super().__init__(game_manager, x, y, width, height, img) # the init for the basic ship class (super is the Ship)
         self.max_ammo = 5
         self.ammo = self.max_ammo
+        self.player_ship = True
 
         self.reload_clock = 0
         self.reload_duration = 1*FPS

@@ -32,7 +32,14 @@ class Game:
         self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_1.png')
         self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_1.png')
 
-
+        self.animation_manager.add_reloading_frames('assets/images/reloading_1.png')
+        self.animation_manager.add_reloading_frames('assets/images/reloading_2.png')
+        self.animation_manager.add_reloading_frames('assets/images/reloading_3.png')
+        self.animation_manager.add_reloading_frames('assets/images/reloading_4.png')
+        self.animation_manager.add_reloading_frames('assets/images/reloading_5.png')
+        self.animation_manager.add_reloading_frames('assets/images/reloading_6.png')
+        self.animation_manager.add_reloading_frames('assets/images/reloading_7.png')
+        self.animation_manager.add_reloading_frames('assets/images/reloading_8.png')
 
         self.bunkers = [
             Bunker(self.game_manager, 50, self.screen.get_height()-200, 100, 50),
@@ -45,16 +52,17 @@ class Game:
 
         self.fps = FPS
         self.run = True
+        self.animation_without_frames = ANIMATION_WITHOUT_FRAMES
         self.next_screen = None
         self.clock = pygame.time.Clock()
         self.player = PlayerShip(self.game_manager, SCREEN_WIDTH/2 - SHIP_WIDTH/2, SCREEN_HEIGHT - 20 - SHIP_HEIGHT/2, 32, 32, self.animation_manager.player_ship_frames)
         self.enemy = Enemy(self.game_manager, SCREEN_WIDTH/2-SHIP_WIDTH/2, SCREEN_HEIGHT - 20 - SHIP_HEIGHT/2, 32, 32, self.animation_manager.enemy_1_frames)
         pygame.display.set_caption('space invaders')
 
-        self.game_manager.add_collision_object(self.player)
-        self.game_manager.add_game_object(self.player)
         self.game_manager.add_game_object(self.enemy)
+        self.game_manager.add_game_object(self.player)
         self.game_manager.add_collision_object(self.enemy)
+        self.game_manager.add_collision_object(self.player)
 
 
     def loop(self):
@@ -84,21 +92,31 @@ class Game:
                 bunker.update()
 
             # Animation
-            self.player.animation_with_frames()
-            if not keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s]:
-                self.player.animation_without_frames()
-            
-            self.enemy.animation_with_frames()
+            self.player.img = self.animation_manager.animation_with_frames(self.animation_manager.player_ship_frames)            
+            self.enemy.img = self.animation_manager.animation_with_frames(self.animation_manager.enemy_1_frames)
+            if self.player.reloading:
+                self.reloading_img = self.animation_manager.animation_with_frames(self.animation_manager.reloading_frames)
+
+            if self.animation_without_frames:
+                for obj in self.game_manager.objects:
+                    if hasattr(obj, 'player_ship'):
+                        if not keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s]:
+                            self.animation_manager.animation_without_frames(obj)
+                    else:   
+                        self.animation_manager.animation_without_frames(obj)
             
 
             # Draw
             self.screen.fill(BLACK)
-            self.enemy.draw()
-            self.player.draw()
+            for obj in self.game_manager.objects:
+                obj.draw()
             for bunker in self.bunkers:
                 bunker.draw()
             for bullet in self.game_manager.bullets:
                 bullet.draw()
+
+            if self.player.reloading:
+                self.game_manager.screen.blit(self.reloading_img, (self.player.rect.x, self.player.rect.y - 32 - 10))
 
             # Window/Time Update
             pygame.display.flip()
