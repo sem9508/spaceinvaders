@@ -22,6 +22,7 @@ class Game:
         self.animation_manager.add_player_ship_frames('assets/images/player_ship_2.png')
         self.animation_manager.add_player_ship_frames('assets/images/player_ship_3.png')
         self.animation_manager.add_player_ship_frames('assets/images/player_ship_4.png')
+        self.animation_manager.load_player_ship_frames()
 
         self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_1.png')
         self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_1.png')
@@ -31,6 +32,7 @@ class Game:
         self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_1.png')
         self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_1.png')
         self.animation_manager.add_enemy_1_frames('assets/images/enemy_1_1.png')
+        self.animation_manager.load_enemy_1_frames()
 
         self.animation_manager.add_reloading_frames('assets/images/reloading_1.png')
         self.animation_manager.add_reloading_frames('assets/images/reloading_2.png')
@@ -40,7 +42,7 @@ class Game:
         self.animation_manager.add_reloading_frames('assets/images/reloading_6.png')
         self.animation_manager.add_reloading_frames('assets/images/reloading_7.png')
         self.animation_manager.add_reloading_frames('assets/images/reloading_8.png')
-
+        self.animation_manager.load_reloading_frames()
         self.bunkers = [
             Bunker(self.game_manager, 50, self.screen.get_height()-200, 100, 50),
             Bunker(self.game_manager, 200, self.screen.get_height()-200, 100, 50),
@@ -92,10 +94,10 @@ class Game:
                 bunker.update()
 
             # Animation
-            self.player.img = self.animation_manager.animation_with_frames(self.animation_manager.player_ship_frames)            
-            self.enemy.img = self.animation_manager.animation_with_frames(self.animation_manager.enemy_1_frames)
+            self.player.img = self.animation_manager.animation_with_frames(self.animation_manager.player_ship_images)            
+            self.enemy.img = self.animation_manager.animation_with_frames(self.animation_manager.enemy_1_images)
             if self.player.reloading:
-                self.reloading_img = self.animation_manager.animation_with_frames(self.animation_manager.reloading_frames)
+                self.reloading_img = self.animation_manager.animation_with_frames(self.animation_manager.reloading_images)
 
             if self.animation_without_frames:
                 for obj in self.game_manager.objects:
