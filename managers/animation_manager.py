@@ -19,43 +19,43 @@ class AnimationManager():
         self.player_ship_frames.append(frame)
 
     def load_player_ship_frames(self):
-        self.player_ship_images = [pygame.image.load(frame).convert_alpha() for frame in self.player_ship_frames]
+        self.player_ship_frames = [pygame.image.load(frame).convert_alpha() for frame in self.player_ship_frames]
 
     def add_enemy_1_frames(self, frame):
         self.enemy_1_frames.append(frame)
 
     def load_enemy_1_frames(self):
-        self.enemy_1_images = [pygame.image.load(frame).convert_alpha() for frame in self.enemy_1_frames]
+        self.enemy_1_frames = [pygame.image.load(frame).convert_alpha() for frame in self.enemy_1_frames]
 
     def add_enemy_2_frames(self, frame):
         self.enemy_2_frames.append(frame)
 
     def load_enemy_2_frames(self):
-        self.enemy_2_images = [pygame.image.load(frame).convert_alpha() for frame in self.enemy_2_frames]
+        self.enemy_2_frames = [pygame.image.load(frame).convert_alpha() for frame in self.enemy_2_frames]
 
     def add_enemy_3_frames(self, frame):
         self.enemy_3_frames.append(frame)
 
     def load_enemy_3_frames(self):
-        self.enemy_3_images = [pygame.image.load(frame).convert_alpha() for frame in self.enemy_3_frames]
+        self.enemy_3_frames = [pygame.image.load(frame).convert_alpha() for frame in self.enemy_3_frames]
 
     def add_enemy_4_frames(self, frame):
         self.enemy_4_frames.append(frame)
 
     def load_enemy_4_frames(self):
-        self.enemy_4_images = [pygame.image.load(frame).convert_alpha() for frame in self.enemy_4_frames]
+        self.enemy_4_frames = [pygame.image.load(frame).convert_alpha() for frame in self.enemy_4_frames]
 
     def add_boss_enemy_frames(self, frame):
         self.boss_enemy_frames.append(frame)
 
     def load_boss_enemy_frames(self):
-        self.boss_enemy_images = [pygame.image.load(frame).convert_alpha() for frame in self.boss_enemy_frames]
+        self.boss_enemy_frames = [pygame.image.load(frame).convert_alpha() for frame in self.boss_enemy_frames]
 
     def add_reloading_frames(self, frame):
         self.reloading_frames.append(frame)
 
     def load_reloading_frames(self):
-        self.reloading_images = [pygame.image.load(frame).convert_alpha() for frame in self.reloading_frames]
+        self.reloading_frames = [pygame.image.load(frame).convert_alpha() for frame in self.reloading_frames]
 
     
     def animation_with_frames(self, image):

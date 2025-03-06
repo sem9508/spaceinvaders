@@ -94,10 +94,10 @@ class Game:
                 bunker.update()
 
             # Animation
-            self.player.img = self.animation_manager.animation_with_frames(self.animation_manager.player_ship_images)            
-            self.enemy.img = self.animation_manager.animation_with_frames(self.animation_manager.enemy_1_images)
+            self.player.img = self.animation_manager.animation_with_frames(self.animation_manager.player_ship_frames)            
+            self.enemy.img = self.animation_manager.animation_with_frames(self.animation_manager.enemy_1_frames)
             if self.player.reloading:
-                self.reloading_img = self.animation_manager.animation_with_frames(self.animation_manager.reloading_images)
+                self.reloading_img = self.animation_manager.animation_with_frames(self.animation_manager.reloading_frames)
 
             if self.animation_without_frames:
                 for obj in self.game_manager.objects:
