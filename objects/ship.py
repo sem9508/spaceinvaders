@@ -12,6 +12,8 @@ class Ship:
         self.speed = 2
         self.frequency = FREQUENCY
         self.timer = 0
+        self.image_index = 0
+        self.max_frames = len(img)-1
 
 
     def draw(self):

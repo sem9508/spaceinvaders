@@ -48,8 +48,6 @@ class Game:
             Bunker(self.game_manager, 200, self.screen.get_height()-200, 100, 50),
             Bunker(self.game_manager, 350, self.screen.get_height()-200, 100, 50),
             Bunker(self.game_manager, 500, self.screen.get_height()-200, 100, 50),
-
-
         ]
 
         self.fps = FPS
@@ -94,10 +92,10 @@ class Game:
                 bunker.update()
 
             # Animation
-            self.player.img = self.animation_manager.animation_with_frames(self.animation_manager.player_ship_frames)            
-            self.enemy.img = self.animation_manager.animation_with_frames(self.animation_manager.enemy_1_frames)
+            self.player.img, self.player.image_index = self.animation_manager.animation_with_frames(self.player.image_index, self.animation_manager.player_ship_frames, self.player.max_frames, self.animation_manager.frame_duration)            
+            self.enemy.img, self.enemy.image_index = self.animation_manager.animation_with_frames(self.enemy.image_index, self.animation_manager.enemy_1_frames, self.enemy.max_frames, self.animation_manager.frame_duration)
             if self.player.reloading:
-                self.reloading_img = self.animation_manager.animation_with_frames(self.animation_manager.reloading_frames)
+                self.reloading_img = self.animation_manager.animation_with_frames(self.animation_manager.reloading_images)
 
             if self.animation_without_frames:
                 for obj in self.game_manager.objects:

@@ -12,6 +12,7 @@ class AnimationManager():
         self.boss_enemy_frames = []
         self.reloading_frames = []
         self.animation_timer = 0
+        self.frame_duration = 8
         self.fps = FPS
         self.frequency = FREQUENCY
 
@@ -58,43 +59,21 @@ class AnimationManager():
         self.reloading_frames = [pygame.image.load(frame).convert_alpha() for frame in self.reloading_frames]
 
     
-    def animation_with_frames(self, image):
-        if self.animation_timer <= self.fps / 8:
-            self.img = image[0]
-            self.animation_timer += 1
-
-        elif self.animation_timer > self.fps / 8 and self.animation_timer <= self.fps / 4:
-            self.img = image[1]   
-            self.animation_timer += 1
-
-        elif self.animation_timer > self.fps / 4 and self.animation_timer <= self.fps * (3 / 8):
-            self.img = image[2]
-            self.animation_timer += 1
-
-        elif self.animation_timer > self.fps * (3 / 8) and self.animation_timer <= self.fps / 2:
-            self.img = image[3]
-            self.animation_timer += 1
+    def animation_with_frames(self, image_index, image, max_frames, frame_duration):
         
-        elif self.animation_timer > self.fps / 2 and self.animation_timer <= self.fps * (5 / 8):
-            self.img = image[4]
-            self.animation_timer += 1
-
-        elif self.animation_timer > self.fps * (5 / 8) and self.animation_timer <= self.fps * (6 / 8):
-            self.img = image[5]
-            self.animation_timer += 1
-
-        elif self.animation_timer > self.fps * (6 / 8) and self.animation_timer <= self.fps * (7 / 8):
-            self.img = image[6]
-            self.animation_timer += 1
-
-        elif self.animation_timer > self.fps * (7 / 8) and self.animation_timer <= self.fps:
-            self.img = image[7]
-            self.animation_timer += 1
+        if self.animation_timer >= frame_duration:
+            self.animation_timer = 0
+            image_index+=1
+            if image_index > max_frames:
+                image_index = 0
+            self.img = image[image_index], image_index
+            return self.img
 
         else:
-            self.animation_timer = 0
+            self.animation_timer +=1
+            return image[image_index], image_index
 
-        return self.img
+
 
     def animation_without_frames(self, obj):
         obj.rect.y += math.sin(2 * int(math.pi) * self.frequency * self.animation_timer)
