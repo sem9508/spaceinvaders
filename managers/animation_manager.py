@@ -59,9 +59,9 @@ class AnimationManager():
         self.reloading_frames = [pygame.image.load(frame).convert_alpha() for frame in self.reloading_frames]
 
     
-    def animation_with_frames(self, image_index, image, max_frames, frame_duration):
+    def animation_with_frames(self, image_index, image, max_frames):
         
-        if self.animation_timer >= frame_duration:
+        if self.animation_timer >= self.frame_duration:
             self.animation_timer = 0
             image_index+=1
             if image_index > max_frames:
