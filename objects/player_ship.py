@@ -26,9 +26,9 @@ class PlayerShip(Ship):
             direction[0] -= 1
         if keys[pygame.K_d]:
             direction[0] += 1
-        if keys[pygame.K_w]:
+        if keys[pygame.K_w] and VERTICAL_MOVEMENT:
             direction[1] -= 1
-        if keys[pygame.K_s]:
+        if keys[pygame.K_s] and VERTICAL_MOVEMENT:
             direction[1] += 1
 
         self.move(direction[0], direction[1])
