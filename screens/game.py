@@ -49,7 +49,6 @@ class Game:
             Bunker(self.game_manager, 350, self.screen.get_height()-200, 100, 50),
             Bunker(self.game_manager, 500, self.screen.get_height()-200, 100, 50),
 
-
         ]
 
         self.fps = FPS
@@ -58,13 +57,26 @@ class Game:
         self.next_screen = None
         self.clock = pygame.time.Clock()
         self.player = PlayerShip(self.game_manager, SCREEN_WIDTH/2 - SHIP_WIDTH/2, SCREEN_HEIGHT - 20 - SHIP_HEIGHT/2, 32, 32, self.animation_manager.player_ship_frames)
-        self.enemy = Enemy(self.game_manager, SCREEN_WIDTH/2-SHIP_WIDTH/2, SCREEN_HEIGHT - 20 - SHIP_HEIGHT/2, 32, 32, self.animation_manager.enemy_1_frames)
+        self.enemy = Enemy(self.game_manager, SCREEN_WIDTH/2 - SHIP_WIDTH/2, 20, 32, 32, self.animation_manager.enemy_1_frames)
         pygame.display.set_caption('space invaders')
 
         self.game_manager.add_game_object(self.enemy)
         self.game_manager.add_game_object(self.player)
         self.game_manager.add_collision_object(self.enemy)
         self.game_manager.add_collision_object(self.player)
+
+        self.game_manager.enemies = [
+            Enemy(self.game_manager, 25, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 50, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 75, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 100, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 125, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 150, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 175, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 200, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 225, 50, 32, 32, self.animation_manager.enemy_1_frames),
+          
+        ]
 
 
     def loop(self):
@@ -79,20 +91,28 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.player.shoot()
+                
 
                     if event.key == pygame.K_r:
                         self.player.reload()
                 
             keys = pygame.key.get_pressed()
                 
-            # Update
+
+
+
+
             self.player.update(keys)
             for bullet in self.game_manager.bullets:
                 bullet.update()
 
+            for enemy in self.game_manager.enemies:
+                enemy.update()
+
             for bunker in self.bunkers:
                 bunker.update()
 
+            
             # Animation
             self.player.img = self.animation_manager.animation_with_frames(self.animation_manager.player_ship_images)            
             self.enemy.img = self.animation_manager.animation_with_frames(self.animation_manager.enemy_1_images)
@@ -116,6 +136,9 @@ class Game:
                 bunker.draw()
             for bullet in self.game_manager.bullets:
                 bullet.draw()
+            for enemy in self.game_manager.enemies:
+                enemy.draw()
+
 
             if self.player.reloading:
                 self.game_manager.screen.blit(self.reloading_img, (self.player.rect.x, self.player.rect.y - 32 - 10))
