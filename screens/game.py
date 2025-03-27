@@ -114,6 +114,8 @@ class Game:
             for enemy in self.game_manager.enemies:
                 enemy.update()
 
+            self.game_manager.enemie_collisions()
+
             for bunker in self.bunkers:
                 bunker.update()
 

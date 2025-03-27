@@ -16,4 +16,10 @@ class GameManager:
     def add_game_object(self, obj):
         self.objects.append(obj)
 
-        
+    def enemie_collisions(self):
+        for bullet in self.bullets:
+            for enemie in self.enemies:
+                if enemie.rect.collidepoint((bullet.x, bullet.y)):
+                    print('e')
+                    self.enemies.pop(self.enemies.index(enemie))
+                    self.bullets.pop(self.bullets.index(bullet))

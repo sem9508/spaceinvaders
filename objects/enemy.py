@@ -43,6 +43,8 @@ class Enemy(Ship):
         if self.rect.x <= 0:
             self.rect.y += SHIP_HEIGHT
             self.direction = 'RIGHT'
+
+            
         
       
             
