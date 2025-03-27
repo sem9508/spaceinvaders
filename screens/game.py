@@ -14,6 +14,8 @@ class Game:
         self.game_manager = GameManager(self.screen)
         self.animation_manager = AnimationManager()
 
+        self.background = pygame.image.load('assets/images/background space invaders.png').convert_alpha()
+
         self.animation_manager.add_player_ship_frames('assets/images/player_ship_1.png')
         self.animation_manager.add_player_ship_frames('assets/images/player_ship_2.png')
         self.animation_manager.add_player_ship_frames('assets/images/player_ship_3.png')
@@ -55,6 +57,9 @@ class Game:
         self.run = True
         self.animation_without_frames = ANIMATION_WITHOUT_FRAMES
         self.next_screen = None
+        self.reloading_index = 0
+        self.reloading_timer = 0
+        self.reloading_max_frames = len(self.animation_manager.reloading_frames) - 1
         self.clock = pygame.time.Clock()
         self.player = PlayerShip(self.game_manager, SCREEN_WIDTH/2 - SHIP_WIDTH/2, SCREEN_HEIGHT - 20 - SHIP_HEIGHT/2, 32, 32, self.animation_manager.player_ship_frames)
         self.enemy = Enemy(self.game_manager, SCREEN_WIDTH/2 - SHIP_WIDTH/2, 20, 32, 32, self.animation_manager.enemy_1_frames)
@@ -114,10 +119,10 @@ class Game:
 
             
             # Animation
-            self.player.img = self.animation_manager.animation_with_frames(self.animation_manager.player_ship_images)            
-            self.enemy.img = self.animation_manager.animation_with_frames(self.animation_manager.enemy_1_images)
+            self.player.img, self.player.image_index, self.player.timer = self.animation_manager.animation_with_frames(self.player.image_index, self.animation_manager.player_ship_frames, self.player.max_frames, self.player.timer)            
+            self.enemy.img, self.enemy.image_index, self.enemy.timer = self.animation_manager.animation_with_frames(self.enemy.image_index, self.animation_manager.enemy_1_frames, self.enemy.max_frames, self.enemy.timer)
             if self.player.reloading:
-                self.reloading_img = self.animation_manager.animation_with_frames(self.animation_manager.reloading_images)
+                self.reloading_img, self.reloading_index, self.reloading_timer = self.animation_manager.animation_with_frames(self.reloading_index, self.animation_manager.reloading_frames, self.reloading_max_frames, self.reloading_timer)
 
             if self.animation_without_frames:
                 for obj in self.game_manager.objects:
@@ -129,7 +134,7 @@ class Game:
             
 
             # Draw
-            self.screen.fill(BLACK)
+            self.screen.blit(self.background, (0, 0))
             for obj in self.game_manager.objects:
                 obj.draw()
             for bunker in self.bunkers:

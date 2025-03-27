@@ -6,13 +6,14 @@ class Ship:
     def __init__(self, game_manager, x, y, width, height, img):
         self.rect = pygame.Rect(x, y, width, height)
         self.game_manager = game_manager
-        self.image = img
-        self.img = pygame.image.load(self.image[0]).convert_alpha()
+        self.img = img[0]
         self.img = pygame.transform.scale(self.img, (self.rect.width, self.rect.height))
         self.fps = FPS
         self.speed = 2
         self.frequency = FREQUENCY
         self.timer = 0
+        self.image_index = 0
+        self.max_frames = len(img)-1
 
 
     def draw(self):

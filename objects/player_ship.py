@@ -12,6 +12,7 @@ class PlayerShip(Ship):
         self.max_ammo = 5
         self.ammo = self.max_ammo
         self.player_ship = True
+        self.timer = 0
 
         self.reload_clock = 0
         self.reload_duration = 1*FPS
@@ -25,9 +26,9 @@ class PlayerShip(Ship):
             direction[0] -= 1
         if keys[pygame.K_d]:
             direction[0] += 1
-        if keys[pygame.K_w]:
+        if keys[pygame.K_w] and VERTICAL_MOVEMENT:
             direction[1] -= 1
-        if keys[pygame.K_s]:
+        if keys[pygame.K_s] and VERTICAL_MOVEMENT:
             direction[1] += 1
 
         self.move(direction[0], direction[1])
