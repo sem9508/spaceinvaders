@@ -14,6 +14,8 @@ class Game:
         self.game_manager = GameManager(self.screen)
         self.animation_manager = AnimationManager()
 
+        self.background = pygame.image.load('assets/images/background space invaders.png').convert_alpha()
+
         self.animation_manager.add_player_ship_frames('assets/images/player_ship_1.png')
         self.animation_manager.add_player_ship_frames('assets/images/player_ship_2.png')
         self.animation_manager.add_player_ship_frames('assets/images/player_ship_3.png')
@@ -110,7 +112,7 @@ class Game:
             
 
             # Draw
-            self.screen.fill(BLACK)
+            self.screen.blit(self.background, (0, 0))
             for obj in self.game_manager.objects:
                 obj.draw()
             for bunker in self.bunkers:
