@@ -20,6 +20,12 @@ class GameManager:
         for bullet in self.bullets:
             for enemie in self.enemies:
                 if enemie.rect.collidepoint((bullet.x, bullet.y)):
-                    print('e')
+                    print('e') 
                     self.enemies.pop(self.enemies.index(enemie))
                     self.bullets.pop(self.bullets.index(bullet))
+
+    def delete_bullet(self):
+        for bullet in self.bullets:
+            if bullet.y < 0:
+                print('succes')
+                self.bullets.pop(self.bullets.index(bullet))

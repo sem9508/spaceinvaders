@@ -112,6 +112,7 @@ class Game:
                 enemy.update()
 
             self.game_manager.enemie_collisions()
+            self.game_manager.delete_bullet()
 
             for bunker in self.bunkers:
                 bunker.update()
