@@ -21,19 +21,30 @@ class GameManager:
 
     def enemie_collisions(self):
         for bullet in self.bullets:
-            for enemie in self.enemies:
-                if enemie.rect.collidepoint((bullet.x, bullet.y)): 
-                    self.enemies.pop(self.enemies.index(enemie))
+            for enemy in self.enemies:
+                if enemy.rect.collidepoint((bullet.x, bullet.y)): 
+                    self.enemies.pop(self.enemies.index(enemy))
                     self.bullets.pop(self.bullets.index(bullet))
-                    if random.randint(1, 4) == 1:
-                        return enemie.rect.x, enemie.rect.y, True
+                    if random.random() < 0.25:
+                        return enemy.rect.x, enemy.rect.y, True
         return None, None, False
     
-    def player_schip_collisions(self, player_ship):
+    def player_schip_collision_upgrade(self, player_ship):
         for upgrade in self.upgrades:
             if player_ship.rect.collidepoint((upgrade.rect.x, upgrade.rect.y)):
                 self.upgrades.pop(self.upgrades.index(upgrade))
                 player_ship.max_ammo += 1
+        
+        
+
+    def player_ship_collision_enemie(self, player_ship, lifes_lost):
+        for enemy in self.enemies:
+            if enemy.rect.colliderect(player_ship.rect):
+
+                lifes_lost -= 1
+                self.enemies.pop(self.enemies.index(enemy))
+
+        return lifes_lost
 
     def delete_bullet(self):
         for bullet in self.bullets:

@@ -15,7 +15,7 @@ class Enemy(Ship):
     
         self.enemy = True
         self.direction = 'RIGHT'
-        self.speed = 1
+        self.speed = 5
 
     def draw(self):
         self.game_manager.screen.blit(self.img, (self.rect.x, self.rect.y))

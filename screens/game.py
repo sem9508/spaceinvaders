@@ -45,6 +45,14 @@ class Game:
         self.animation_manager.add_reloading_frames('assets/images/reloading_6.png')
         self.animation_manager.add_reloading_frames('assets/images/reloading_7.png')
         self.animation_manager.add_reloading_frames('assets/images/reloading_8.png')
+
+        self.animation_manager.add_upgrade_frames('assets/images/upgrade.png')
+        self.animation_manager.load_upgrade_frames()
+
+        self.animation_manager.add_heart_frames('assets/images/full_heart.png')
+        self.animation_manager.add_heart_frames('assets/images/empty_heart.png')
+        self.animation_manager.load_heart_frames()
+
         self.animation_manager.load_reloading_frames()
         self.game_manager.bunkers = [
             Bunker(self.game_manager, 50, self.screen.get_height()-200, 100, 50),
@@ -56,6 +64,7 @@ class Game:
 
         self.fps = FPS
         self.run = True
+        self.lifes_lost = 3
         self.upgrade = False
         self.animation_without_frames = ANIMATION_WITHOUT_FRAMES
         self.upgrade_velocity_x = UPGRADE_VELOCITY_X
@@ -85,10 +94,6 @@ class Game:
             Enemy(self.game_manager, 225, 50, 32, 32, self.animation_manager.enemy_1_frames),
           
         ]
-
-        self.animation_manager.add_upgrade_frames('assets/images/upgrade.png')
-        self.animation_manager.load_upgrade_frames()
-
 
     def loop(self):
         while self.run:
@@ -129,7 +134,8 @@ class Game:
                 self.game_manager.upgrades.append(new_upgrade)
                 self.upgrade = False
 
-            self.game_manager.player_schip_collisions(self.player)
+            self.game_manager.player_schip_collision_upgrade(self.player)
+            self.lifes_lost = self.game_manager.player_ship_collision_enemie(self.player, self.lifes_lost)
             self.game_manager.delete_bullet()
             
 
@@ -165,7 +171,25 @@ class Game:
                 enemy.draw()
             for upgrade in self.game_manager.upgrades:
                 upgrade.draw()
+            
+            if self.lifes_lost == 3:
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[0], (10, 10))
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[0], (20 + 32, 10))
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[0], (30 + 32 + 32, 10))
+            
+            elif self.lifes_lost == 2:
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[0], (10, 10))
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[0], (20 + 32, 10))
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[1], (30 + 32 + 32, 10))
 
+            elif self.lifes_lost == 1:
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[0], (10, 10))
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[1], (20 + 32, 10))
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[1], (30 + 32 + 32, 10))
+
+            elif self.lifes_lost == 0:
+                self.next_screen = 0
+                self.run = False
 
             if self.player.reloading:
                 self.game_manager.screen.blit(self.reloading_img, (self.player.rect.x, self.player.rect.y - 32 - 10))

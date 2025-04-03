@@ -12,6 +12,7 @@ class AnimationManager():
         self.boss_enemy_frames = []
         self.reloading_frames = []
         self.upgrade_frames = []
+        self.heart_frames = []
         self.animation_timer = 0
         self.frame_duration = 8
         self.fps = FPS
@@ -64,6 +65,12 @@ class AnimationManager():
     
     def load_upgrade_frames(self):
         self.upgrade_frames = [pygame.image.load(frame).convert_alpha() for frame in self.upgrade_frames]
+
+    def add_heart_frames(self, frame):
+        self.heart_frames.append(frame)
+    
+    def load_heart_frames(self):
+        self.heart_frames = [pygame.image.load(frame).convert_alpha() for frame in self.heart_frames]
 
     
     def animation_with_frames(self, image_index, image, max_frames, animation_timer):
