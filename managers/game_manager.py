@@ -22,42 +22,34 @@ class GameManager:
     def enemy_collisions(self):
         for bullet in self.bullets:
             for enemy in self.enemies:
-<<<<<<< HEAD
+
                 if enemy.rect.collidepoint((bullet.x, bullet.y)):
-                    self.enemies.pop(self.enemies.index(enemy))
-                    self.bullets.pop(self.bullets.index(bullet))
-    def player_collisions(self):
-        for bullet in self.enemyBullets:
-            if self.player.rect.collidepoint((bullet.x, bullet.y)):
-                self.player.pop()
-=======
-                if enemy.rect.collidepoint((bullet.x, bullet.y)): 
                     self.enemies.pop(self.enemies.index(enemy))
                     self.bullets.pop(self.bullets.index(bullet))
                     if random.random() < 0.25:
                         return enemy.rect.x, enemy.rect.y, True
         return None, None, False
     
-    def player_schip_collision_upgrade(self, player_ship):
+    def player_schip_collisions(self, player_ship, lifes):
         for upgrade in self.upgrades:
-            if player_ship.rect.collidepoint((upgrade.rect.x, upgrade.rect.y)):
+            if player_ship.rect.colliderect(upgrade.rect):
                 self.upgrades.pop(self.upgrades.index(upgrade))
                 player_ship.max_ammo += 1
         
-        
-
-    def player_ship_collision_enemie(self, player_ship, lifes_lost):
         for enemy in self.enemies:
             if enemy.rect.colliderect(player_ship.rect):
-
-                lifes_lost -= 1
+                lifes -= 1
                 self.enemies.pop(self.enemies.index(enemy))
+        
+        for enemybullet in self.enemyBullets:
+            if player_ship.rect.collidepoint((enemybullet.x, enemybullet.y)):
+                lifes -= 1
+                self.enemyBullets.pop(self.enemyBullets.index(enemybullet))
 
-        return lifes_lost
+        return lifes    
 
     def delete_bullet(self):
         for bullet in self.bullets:
             if bullet.y < 0:
                 print('succes')
->>>>>>> 49af8651a2b3984dbc7fe98f32c6ddfa2feb8fa0
                 self.bullets.pop(self.bullets.index(bullet))

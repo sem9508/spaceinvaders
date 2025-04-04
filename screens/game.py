@@ -86,10 +86,13 @@ class Game:
 
         self.game_manager.enemies = [
             Enemy(self.game_manager, 0, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 25, 50, 32, 32, self.animation_manager.enemy_1_frames),
             Enemy(self.game_manager, 50, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 75, 50, 32, 32, self.animation_manager.enemy_1_frames),
             Enemy(self.game_manager, 100, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 125, 50, 32, 32, self.animation_manager.enemy_1_frames),
             Enemy(self.game_manager, 150, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 150, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 175, 50, 32, 32, self.animation_manager.enemy_1_frames),
             Enemy(self.game_manager, 200, 50, 32, 32, self.animation_manager.enemy_1_frames),
             Enemy(self.game_manager, 225, 50, 32, 32, self.animation_manager.enemy_1_frames),
           
@@ -132,25 +135,22 @@ class Game:
             for upgrade in self.game_manager.upgrades:
                 upgrade.update()
             
-            self.upgrade_x, self.upgrade_y, self.upgrade = self.game_manager.enemie_collisions()
+            self.upgrade_x, self.upgrade_y, self.upgrade = self.game_manager.enemy_collisions()
             if self.upgrade:
                 new_upgrade = Upgrade(self.game_manager, self.upgrade_x, self.upgrade_y, 16, 16,self.animation_manager.upgrade_frames, self.upgrade_velocity_x, self.upgrade_velocity_y)
                 self.game_manager.upgrades.append(new_upgrade)
                 self.upgrade = False
 
-            self.game_manager.player_schip_collision_upgrade(self.player)
-            self.lifes_lost = self.game_manager.player_ship_collision_enemie(self.player, self.lifes_lost)
+            self.lifes_lost = self.game_manager.player_schip_collisions(self.player, self.lifes_lost)
             self.game_manager.delete_bullet()
             
 
             for bunker in self.game_manager.bunkers:
-
+                bunker.update()
         
             
 
             self.game_manager.enemy_collisions()
-            for bunker in self.bunkers:
-                bunker.update()
 
             
             # Animation
@@ -199,7 +199,7 @@ class Game:
                 self.game_manager.screen.blit(self.animation_manager.heart_frames[1], (20 + 32, 10))
                 self.game_manager.screen.blit(self.animation_manager.heart_frames[1], (30 + 32 + 32, 10))
 
-            elif self.lifes_lost == 0:
+            elif self.lifes_lost <= 0:
                 self.next_screen = 0
                 self.run = False
 
