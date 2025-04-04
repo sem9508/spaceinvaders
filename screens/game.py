@@ -7,6 +7,7 @@ from managers.game_manager import GameManager
 from managers.animation_manager import AnimationManager
 from objects.bunker import Bunker
 
+from objects.upgrade import Upgrade
 
 class Game:
     def __init__(self, screen):
@@ -45,8 +46,16 @@ class Game:
         self.animation_manager.add_reloading_frames('assets/images/reloading_6.png')
         self.animation_manager.add_reloading_frames('assets/images/reloading_7.png')
         self.animation_manager.add_reloading_frames('assets/images/reloading_8.png')
+
+        self.animation_manager.add_upgrade_frames('assets/images/upgrade.png')
+        self.animation_manager.load_upgrade_frames()
+
+        self.animation_manager.add_heart_frames('assets/images/full_heart.png')
+        self.animation_manager.add_heart_frames('assets/images/empty_heart.png')
+        self.animation_manager.load_heart_frames()
+
         self.animation_manager.load_reloading_frames()
-        self.bunkers = [
+        self.game_manager.bunkers = [
             Bunker(self.game_manager, 50, self.screen.get_height()-200, 100, 50),
             Bunker(self.game_manager, 200, self.screen.get_height()-200, 100, 50),
             Bunker(self.game_manager, 350, self.screen.get_height()-200, 100, 50),
@@ -57,8 +66,14 @@ class Game:
 
         self.fps = FPS
         self.run = True
+        self.lifes_lost = 3
+        self.upgrade = False
         self.animation_without_frames = ANIMATION_WITHOUT_FRAMES
+        self.upgrade_velocity_x = UPGRADE_VELOCITY_X
+        self.upgrade_velocity_y = UPGRADE_VELOCITY_Y
         self.next_screen = None
+        self.upgrade_x = None
+        self.upgrade_y = None
         self.reloading_index = 0
         self.reloading_timer = 0
         self.reloading_max_frames = len(self.animation_manager.reloading_frames) - 1
@@ -76,12 +91,7 @@ class Game:
             Enemy(self.game_manager, 150, 50, 32, 32, self.animation_manager.enemy_1_frames),
             Enemy(self.game_manager, 150, 50, 32, 32, self.animation_manager.enemy_1_frames),
             Enemy(self.game_manager, 200, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 250, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 300, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 350, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 400, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 450, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            
+            Enemy(self.game_manager, 225, 50, 32, 32, self.animation_manager.enemy_1_frames),
           
         ]
 
@@ -108,7 +118,7 @@ class Game:
 
 
 
-
+            # updates
             self.player.update(keys)
             for bullet in self.game_manager.bullets:
                 bullet.update()
@@ -118,6 +128,22 @@ class Game:
             
             for enemy in self.game_manager.enemies:
                 enemy.update()
+            
+            for upgrade in self.game_manager.upgrades:
+                upgrade.update()
+            
+            self.upgrade_x, self.upgrade_y, self.upgrade = self.game_manager.enemie_collisions()
+            if self.upgrade:
+                new_upgrade = Upgrade(self.game_manager, self.upgrade_x, self.upgrade_y, 16, 16,self.animation_manager.upgrade_frames, self.upgrade_velocity_x, self.upgrade_velocity_y)
+                self.game_manager.upgrades.append(new_upgrade)
+                self.upgrade = False
+
+            self.game_manager.player_schip_collision_upgrade(self.player)
+            self.lifes_lost = self.game_manager.player_ship_collision_enemie(self.player, self.lifes_lost)
+            self.game_manager.delete_bullet()
+            
+
+            for bunker in self.game_manager.bunkers:
 
         
             
@@ -147,7 +173,7 @@ class Game:
             self.screen.blit(self.background, (0, 0))
             for obj in self.game_manager.objects:
                 obj.draw()
-            for bunker in self.bunkers:
+            for bunker in self.game_manager.bunkers:
                 bunker.draw()
             for bullet in self.game_manager.bullets:
                 bullet.draw()
@@ -155,7 +181,27 @@ class Game:
                 bullet.draw()
             for enemy in self.game_manager.enemies:
                 enemy.draw()
+            for upgrade in self.game_manager.upgrades:
+                upgrade.draw()
+            
+            if self.lifes_lost == 3:
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[0], (10, 10))
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[0], (20 + 32, 10))
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[0], (30 + 32 + 32, 10))
+            
+            elif self.lifes_lost == 2:
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[0], (10, 10))
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[0], (20 + 32, 10))
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[1], (30 + 32 + 32, 10))
 
+            elif self.lifes_lost == 1:
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[0], (10, 10))
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[1], (20 + 32, 10))
+                self.game_manager.screen.blit(self.animation_manager.heart_frames[1], (30 + 32 + 32, 10))
+
+            elif self.lifes_lost == 0:
+                self.next_screen = 0
+                self.run = False
 
             if self.player.reloading:
                 self.game_manager.screen.blit(self.reloading_img, (self.player.rect.x, self.player.rect.y - 32 - 10))
