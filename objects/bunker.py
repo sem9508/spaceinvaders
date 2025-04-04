@@ -28,12 +28,18 @@ class Bunker:
     def update(self):
         self.check_bullet_collision()
 
+
+
+
+
+
+
     def check_bullet_collision(self):
-        for bullet in self.game_manager.enemy_bullets:
+        for bullet in self.game_manager.enemyBullets:
             for pixel in self.grid:
                 if pixel.collidepoint(bullet.x, bullet.y):
                     self.grid.pop(self.grid.index(pixel))
-                    self.game_manager.enemy_bullets.pop(self.game_manager.enemy_bullets.index(bullet))
+                    self.game_manager.enemyBullets.pop(self.game_manager.enemyBullets.index(bullet))
 
         for bullet in self.game_manager.bullets:
             for pixel in self.grid:

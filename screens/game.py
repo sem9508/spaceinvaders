@@ -7,6 +7,7 @@ from managers.game_manager import GameManager
 from managers.animation_manager import AnimationManager
 from objects.bunker import Bunker
 
+
 class Game:
     def __init__(self, screen):
         self.screen = screen
@@ -52,6 +53,7 @@ class Game:
             Bunker(self.game_manager, 500, self.screen.get_height()-200, 100, 50),
 
         ]
+        
 
         self.fps = FPS
         self.run = True
@@ -68,15 +70,18 @@ class Game:
         self.game_manager.add_collision_object(self.player)
 
         self.game_manager.enemies = [
-            Enemy(self.game_manager, 25, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 0, 50, 32, 32, self.animation_manager.enemy_1_frames),
             Enemy(self.game_manager, 50, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 75, 50, 32, 32, self.animation_manager.enemy_1_frames),
             Enemy(self.game_manager, 100, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 125, 50, 32, 32, self.animation_manager.enemy_1_frames),
             Enemy(self.game_manager, 150, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 175, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 150, 50, 32, 32, self.animation_manager.enemy_1_frames),
             Enemy(self.game_manager, 200, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 225, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 250, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 300, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 350, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 400, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 450, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            
           
         ]
 
@@ -107,12 +112,17 @@ class Game:
             self.player.update(keys)
             for bullet in self.game_manager.bullets:
                 bullet.update()
+            for bullet in self.game_manager.enemyBullets:
+                bullet.update()
 
+            
             for enemy in self.game_manager.enemies:
                 enemy.update()
 
-            self.game_manager.enemie_collisions()
+        
+            
 
+            self.game_manager.enemy_collisions()
             for bunker in self.bunkers:
                 bunker.update()
 
@@ -140,6 +150,8 @@ class Game:
             for bunker in self.bunkers:
                 bunker.draw()
             for bullet in self.game_manager.bullets:
+                bullet.draw()
+            for bullet in self.game_manager.enemyBullets:
                 bullet.draw()
             for enemy in self.game_manager.enemies:
                 enemy.draw()

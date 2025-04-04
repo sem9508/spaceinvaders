@@ -5,7 +5,7 @@ class GameManager:
         self.objects = []
         self.screen = screen
         self.bullets = []
-        self.enemy_bullets = []
+        self.enemyBullets = []
         self.enemies = []
 
 
@@ -16,10 +16,14 @@ class GameManager:
     def add_game_object(self, obj):
         self.objects.append(obj)
 
-    def enemie_collisions(self):
+    def enemy_collisions(self):
         for bullet in self.bullets:
-            for enemie in self.enemies:
-                if enemie.rect.collidepoint((bullet.x, bullet.y)):
-                    print('e')
-                    self.enemies.pop(self.enemies.index(enemie))
+            for enemy in self.enemies:
+                if enemy.rect.collidepoint((bullet.x, bullet.y)):
+                    self.enemies.pop(self.enemies.index(enemy))
                     self.bullets.pop(self.bullets.index(bullet))
+    def player_collisions(self):
+        for bullet in self.enemyBullets:
+            if self.player.rect.collidepoint((bullet.x, bullet.y)):
+                self.player.pop()
+                self.bullets.pop(self.bullets.index(bullet))
