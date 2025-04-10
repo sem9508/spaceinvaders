@@ -4,18 +4,21 @@ import random
 from objects.ship import Ship
 from objects.bullet import *
 from constants import *
+
 directionEnemy = [0, 0]
 x = 600
 y = 0
+q = 0
 secure_random = random.SystemRandom
 class Enemy(Ship):
-    def __init__(self, game_manager, x, y, width, height, img):
+    def __init__(self, game_manager, x, y, width, height, img, animation_manager):
         super().__init__(game_manager, x, y, width, height, img)
         self.image_index = 0
         self.timer = 0
         self.game_manager = game_manager
+        self.animation_manager = animation_manager
         self.max_frames = len(img)-1
-    
+
         self.enemy = True
         self.direction = 'RIGHT'
         self.speed = 1
@@ -41,10 +44,11 @@ class Enemy(Ship):
         
         global x
         global y
-
-        if x == 600:
+        global q
+        if x == 800:
             y = random.randrange(600)
             x = 0
+            q += 1
 
         if x == y:
             self.shootEnemy()

@@ -7,7 +7,8 @@ from managers.game_manager import GameManager
 from managers.animation_manager import AnimationManager
 from objects.bunker import Bunker
 from objects.upgrade import Upgrade
-
+x = 0
+q = 0
 class Game:
     def __init__(self, screen,set_current_frame):
         self.screen = screen
@@ -85,21 +86,24 @@ class Game:
         self.game_manager.add_collision_object(self.player)
 
         self.game_manager.enemies = [
-            Enemy(self.game_manager, 0, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 25, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 50, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 75, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 100, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 125, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 150, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 175, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 200, 50, 32, 32, self.animation_manager.enemy_1_frames),
-            Enemy(self.game_manager, 225, 50, 32, 32, self.animation_manager.enemy_1_frames),
+            Enemy(self.game_manager, 0, 50, 32, 32, self.animation_manager.enemy_1_frames, self.animation_manager),
+            Enemy(self.game_manager, 50, 50, 32, 32, self.animation_manager.enemy_1_frames, self.animation_manager),
+            Enemy(self.game_manager, 100, 50, 32, 32, self.animation_manager.enemy_1_frames, self.animation_manager),
+            Enemy(self.game_manager, 100, 50, 32, 32, self.animation_manager.enemy_1_frames,self.animation_manager),
+            Enemy(self.game_manager, 150, 50, 32, 32, self.animation_manager.enemy_1_frames,self.animation_manager),
+            Enemy(self.game_manager, 200, 50, 32, 32, self.animation_manager.enemy_1_frames,self.animation_manager),
+            Enemy(self.game_manager, 250, 50, 32, 32, self.animation_manager.enemy_1_frames,self.animation_manager),
+            Enemy(self.game_manager, 300, 50, 32, 32, self.animation_manager.enemy_1_frames,self.animation_manager),
+            Enemy(self.game_manager, 350, 50, 32, 32, self.animation_manager.enemy_1_frames,self.animation_manager),
+            Enemy(self.game_manager, 400, 50, 32, 32, self.animation_manager.enemy_1_frames,self.animation_manager),
+            Enemy(self.game_manager, 450, 50, 32, 32, self.animation_manager.enemy_1_frames, self.animation_manager),
           
         ]
 
 
     def loop(self):
+        global x
+        global q
         while self.run:
 
             # input
@@ -131,6 +135,29 @@ class Game:
             
             for enemy in self.game_manager.enemies:
                 enemy.update()
+
+            x += 1
+            if x == 200:
+                q += 1
+                x = 0
+
+            if q == 5:
+                q = 0
+                print("oh my god")
+                self.game_manager.enemies.append(Enemy(self.game_manager, 0, 50, 32, 32, self.animation_manager.enemy_1_frames, self.animation_manager))
+                self.game_manager.enemies.append(Enemy(self.game_manager, 50, 50, 32, 32, self.animation_manager.enemy_1_frames, self.animation_manager))
+                self.game_manager.enemies.append(Enemy(self.game_manager, 100, 50, 32, 32, self.animation_manager.enemy_1_frames, self.animation_manager))
+                self.game_manager.enemies.append(Enemy(self.game_manager, 150, 50, 32, 32, self.animation_manager.enemy_1_frames, self.animation_manager))
+                self.game_manager.enemies.append(Enemy(self.game_manager, 200, 50, 32, 32, self.animation_manager.enemy_1_frames, self.animation_manager))
+                self.game_manager.enemies.append(Enemy(self.game_manager, 250, 50, 32, 32, self.animation_manager.enemy_1_frames, self.animation_manager))
+                self.game_manager.enemies.append(Enemy(self.game_manager, 300, 50, 32, 32, self.animation_manager.enemy_1_frames, self.animation_manager))
+                self.game_manager.enemies.append(Enemy(self.game_manager, 350, 50, 32, 32, self.animation_manager.enemy_1_frames, self.animation_manager))
+                self.game_manager.enemies.append(Enemy(self.game_manager, 400, 50, 32, 32, self.animation_manager.enemy_1_frames, self.animation_manager))
+                self.game_manager.enemies.append(Enemy(self.game_manager, 450, 50, 32, 32, self.animation_manager.enemy_1_frames, self.animation_manager))
+
+
+
+
             
             for upgrade in self.game_manager.upgrades:
                 upgrade.update()
