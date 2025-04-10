@@ -52,7 +52,7 @@ class PlayerShip(Ship):
 
         self.active_gun *= -1
         self.game_manager.bullets.append(new_bullet)
-
+        
     def reload(self):
         self.reloading = True
 

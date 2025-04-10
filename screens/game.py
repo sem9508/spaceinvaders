@@ -6,7 +6,6 @@ from objects.enemy import *
 from managers.game_manager import GameManager
 from managers.animation_manager import AnimationManager
 from objects.bunker import Bunker
-
 from objects.upgrade import Upgrade
 
 class Game:
@@ -132,7 +131,7 @@ class Game:
             for upgrade in self.game_manager.upgrades:
                 upgrade.update()
             
-            self.upgrade_x, self.upgrade_y, self.upgrade = self.game_manager.enemie_collisions()
+            self.upgrade_x, self.upgrade_y, self.upgrade = self.game_manager.enemy_collisions()
             if self.upgrade:
                 new_upgrade = Upgrade(self.game_manager, self.upgrade_x, self.upgrade_y, 16, 16,self.animation_manager.upgrade_frames, self.upgrade_velocity_x, self.upgrade_velocity_y)
                 self.game_manager.upgrades.append(new_upgrade)
@@ -144,14 +143,7 @@ class Game:
             
 
             for bunker in self.game_manager.bunkers:
-
-        
-            
-
-            self.game_manager.enemy_collisions()
-            for bunker in self.bunkers:
                 bunker.update()
-
             
             # Animation
             self.player.img, self.player.image_index, self.player.timer = self.animation_manager.animation_with_frames(self.player.image_index, self.animation_manager.player_ship_frames, self.player.max_frames, self.player.timer)            
