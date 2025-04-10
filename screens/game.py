@@ -10,8 +10,9 @@ from objects.bunker import Bunker
 from objects.upgrade import Upgrade
 
 class Game:
-    def __init__(self, screen):
+    def __init__(self, screen,set_current_frame):
         self.screen = screen
+        self.set_current_frame = set_current_frame
 
         self.game_manager = GameManager(self.screen)
         self.animation_manager = AnimationManager()
@@ -209,5 +210,8 @@ class Game:
             # Window/Time Update
             pygame.display.flip()
             self.clock.tick(self.fps)
+            self.set_current_frame(self.screen)
+
+            
 
         return self.next_screen

@@ -3,8 +3,9 @@ from constants import *
 from objects.button import *
 
 class Options:
-    def __init__(self, screen):
+    def __init__(self, screen, set_current_frame):
         self.screen = screen
+        self.set_current_frame = set_current_frame
         self.fps = FPS
         self.run = True
         self.next_screen = None
@@ -35,5 +36,6 @@ class Options:
 
             pygame.display.flip()
             self.clock.tick(self.fps)
+            self.set_current_frame(self.screen)
                 
         return self.next_screen
