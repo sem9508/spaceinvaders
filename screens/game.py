@@ -6,7 +6,6 @@ from objects.enemy import *
 from managers.game_manager import GameManager
 from managers.animation_manager import AnimationManager
 from objects.bunker import Bunker
-
 from objects.upgrade import Upgrade
 
 class Game:
@@ -148,11 +147,6 @@ class Game:
 
             for bunker in self.game_manager.bunkers:
                 bunker.update()
-        
-            
-
-            self.game_manager.enemy_collisions()
-
             
             # Animation
             self.player.img, self.player.image_index, self.player.timer = self.animation_manager.animation_with_frames(self.player.image_index, self.animation_manager.player_ship_frames, self.player.max_frames, self.player.timer)            
