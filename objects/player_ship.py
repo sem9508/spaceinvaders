@@ -17,6 +17,7 @@ class PlayerShip(Ship):
         self.reload_clock = 0
         self.reload_duration = 1*FPS
         self.reloading = False
+        self.double_gun = False
 
         self.active_gun = -1
 
@@ -48,10 +49,18 @@ class PlayerShip(Ship):
         
         self.ammo -= 1
 
-        new_bullet = Bullet(self.game_manager, WHITE, 2, self.rect.x + 5 if self.active_gun == -1 else self.rect.x + self.rect.width - 5, self.rect.y+10, 0, -1)
+        if self.double_gun:
+            new_bullet = Bullet(self.game_manager, WHITE, 2, self.rect.x + 5, self.rect.y + 10, 0, -1)
+            new_bullet_2 = Bullet(self.game_manager, WHITE, 2, self.rect.x + self.rect.width - 5, self.rect.y + 10, 0, -1)
+            self.game_manager.bullets.append(new_bullet)
+            self.game_manager.bullets.append(new_bullet_2)
+            
+        else:
+            new_bullet = Bullet(self.game_manager, WHITE, 2, self.rect.x + 5 if self.active_gun == -1 else self.rect.x + self.rect.width - 5, self.rect.y + 10, 0, -1)
+            self.game_manager.bullets.append(new_bullet)
 
         self.active_gun *= -1
-        self.game_manager.bullets.append(new_bullet)
+        
         
     def reload(self):
         self.reloading = True

@@ -27,7 +27,8 @@ class GameManager:
                 if enemy.rect.collidepoint((bullet.x, bullet.y)):
                     self.enemies.pop(self.enemies.index(enemy))
                     self.bullets.pop(self.bullets.index(bullet))
-                    if random.random() < 0.25:
+                    random_variable = random.random()
+                    if random_variable < 0.25:
                         return enemy.rect.x, enemy.rect.y, True
         return None, None, False
     
@@ -35,7 +36,15 @@ class GameManager:
         for upgrade in self.upgrades:
             if player_ship.rect.colliderect(upgrade.rect):
                 self.upgrades.pop(self.upgrades.index(upgrade))
-                player_ship.max_ammo += 1
+                if player_ship.double_gun:
+                    
+                        player_ship.max_ammo += 1
+                else:
+                    random_variable = random.random()
+                    if random_variable < 0.01:
+                        player_ship.double_gun = True
+                    else:
+                        player_ship.max_ammo += 1
         
         for enemy in self.enemies:
             if enemy.rect.colliderect(player_ship.rect):
