@@ -1,4 +1,5 @@
 import random
+from constants import *
 
 class GameManager:
     def __init__(self, screen):
@@ -53,3 +54,8 @@ class GameManager:
             if bullet.y < 0:
                 print('succes')
                 self.bullets.pop(self.bullets.index(bullet))
+
+        for enemybullet in self.enemyBullets:
+            if enemybullet.y > SCREEN_HEIGHT:
+                print('works')
+                self.enemyBullets.pop(self.enemyBullets.index(enemybullet))
